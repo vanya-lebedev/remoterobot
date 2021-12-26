@@ -19,23 +19,49 @@ def index():
     return render_template('index.html')
 
 @app.route('/move/<direction>')
-def move(direction):    
-    # Turn the right motor forwards
-    GPIO.output(9, 0)
-    GPIO.output(10, 1)
+def move(direction):
+    if direction == 'stop':
+        # Turn all motors off
+        GPIO.output(7, 0)
+        GPIO.output(8, 0)
+        GPIO.output(9, 0)
+        GPIO.output(10, 0)
+    
+    if direction == 'up':
+        # Turn the right motor forwards
+        GPIO.output(9, 0)
+        GPIO.output(10, 1)
 
-    # Turn the left motor forwards
-    GPIO.output(7, 0)
-    GPIO.output(8, 1)
+        # Turn the left motor forwards
+        GPIO.output(7, 0)
+        GPIO.output(8, 1)
     
-    time.sleep(1)
+    if direction == 'down':
+        # Turn the right motor backwards
+        GPIO.output(9, 1)
+        GPIO.output(10, 0)
+
+        # Turn the left motor backwards
+        GPIO.output(7, 1)
+        GPIO.output(8, 0)
     
-    # Turn all motors off
-    GPIO.output(7, 0)
-    GPIO.output(8, 0)
-    GPIO.output(9, 0)
-    GPIO.output(10, 0)
-    # GPIO.cleanup()
+    if direction == 'left':
+        # Turn the right motor forwards
+        GPIO.output(9, 0)
+        GPIO.output(10, 1)
+
+        # Turn the left motor backwards
+        GPIO.output(7, 1)
+        GPIO.output(8, 0)
+    
+    if direction == 'right':
+        # Turn the right motor backwards
+        GPIO.output(9, 1)
+        GPIO.output(10, 0)
+
+        # Turn the left motor forwards
+        GPIO.output(7, 0)
+        GPIO.output(8, 1)
     
     return direction;
 

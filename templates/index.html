@@ -30,7 +30,14 @@ const checkKey = async (e) => {
     }
 }
 
+const stop = async (e) => {
+    e = e || window.event;
+
+    await move('stop');
+}
+
 document.onkeydown = checkKey;
+document.onkeyup = stop;
 
 </script>
 </body>
