@@ -2,7 +2,36 @@
 <body>
 <h1>My website</h1>
 <iframe src="http://192.168.0.107:8081/" height="240" width="320" title="Camera feed"></iframe>
+<!-- <button onclick="moveUp()">Up</button> -->
+<div id="divcommand"></div>
+<script>
+const move = async (direction) => {
+  const response = await fetch('http://192.168.0.107:5000/move/' + direction);
+  const myJson = await response.text(); //extract JSON from the http response
+  const div = document.getElementById('divcommand');
+  div.innerText = myJson;
+  // do something with myJson
+}
 
+const checkKey = async (e) => {
+    e = e || window.event;
 
+    if (e.keyCode == '38') {
+        await move('up');
+    }
+    else if (e.keyCode == '40') {
+        await move('down');
+    }
+    else if (e.keyCode == '37') {
+        await move('left');
+    }
+    else if (e.keyCode == '39') {
+        await move('right');
+    }
+}
+
+document.onkeydown = checkKey;
+
+</script>
 </body>
 </html>
